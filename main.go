@@ -1,7 +1,13 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
-func main(){
+func main() {
 	fmt.Println("Hello world!")
+	fmt.Println("The time is", time.Now())
+	// panic("asdasd")
+	fmt.Println("Bye world!")
 }
