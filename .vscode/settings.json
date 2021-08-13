@@ -1,0 +1,7 @@
+{
+    "go.formatTool": "goformat",
+    
+    "go.toolsEnvVars": {
+    
+    }
+}

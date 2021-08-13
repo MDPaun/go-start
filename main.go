@@ -1,19 +1,9 @@
 package main
 
-import (
-	"fmt"
-	"time"
-
-	"rsc.io/quote"
-)
-
+import "fmt"
 
 func main() {
-	fmt.Println("Hello world!")
-	fmt.Println(quote.Go())
-	fmt.Println("The time is", time.Now())
-	Hello("Vasile")
-	fmt.Println("Bye world!")
+    // Get a greeting message and print it.
+    message := "Gladys"
+    fmt.Println(message)
 }
-
-
