@@ -1,13 +1,13 @@
 package service
 
 import (
-	db "website/internal/database/postgres/"
+	db "github.com/MDPaun/go-start/tree/main/website/internal/database/postgres"
 
-	models "github.com/MDPaun/go-start/website/pkg/models/user"
+	models "github.com/MDPaun/go-start/website/pkg/models/staff"
 )
 
-var us db.UserService
-var user db.User
+var us db.StaffService
+var staf db.Staff
 
 // //CreatePet create a Pet
 // func CreatePet(p *db.Pet) error {
@@ -30,7 +30,7 @@ var user db.User
 // }
 
 //GetUser get one User
-func GetUser(id int) (*models.User, error) {
+func GetStaff(id int) (*models.User, error) {
 	us = &user
 	user, err := us.GetUser(id)
 	if err != nil {

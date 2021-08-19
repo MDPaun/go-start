@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"errors"
 
-	client "website/internal/database/postgres"
+	client "github.com/MDPaun/go-start/tree/main/website/internal/database/postgres"
 
 	models "github.com/MDPaun/go-start/website/pkg/models/user"
 )

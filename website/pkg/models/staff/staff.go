@@ -1,7 +1,7 @@
 package models
 
-//User storage model for user
-type User struct {
+//Staff storage model for Staff
+type Staff struct {
 	ID        int    `json:"id"`
 	GroupID   int    `json:"groupID"`
 	Email     string `json:"email"`
@@ -16,9 +16,9 @@ type User struct {
 }
 
 //PetService interface for Pet model
-type UserService interface {
-	CreateUser() error
-	GetUserByGroup(UserGroupID int) ([]*User, error)
-	GetUser(id int) (*User, error)
-	DeleteUser(id int) error
+type StaffService interface {
+	CreateStaff() error
+	GetStaffByGroup(StaffGroupID int) ([]*Staff, error)
+	GetStaff(id int) (*Staff, error)
+	DeleteStaff(id int) error
 }

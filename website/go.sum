@@ -1,2 +1,4 @@
+github.com/MDPaun/go-start/website v0.0.0-20210819153333-8b5299381c23 h1:dhMEtrn2/QXf41oxc2CJndELVjGM7kenFJ5Y7gsw2pY=
+github.com/MDPaun/go-start/website v0.0.0-20210819153333-8b5299381c23/go.mod h1:PbN7ZCYZbPgEBk9HP0lQe5fhe4SuKbEqFTGqa3H7gaY=
 github.com/lib/pq v1.10.2 h1:AqzbZs4ZoCBp+GtejcpCpcxM3zlSMx29dXbUSeVtJb8=
 github.com/lib/pq v1.10.2/go.mod h1:AlVN5x4E4T544tWzH6hKfbfQvm3HdbOxrmggDNAPY9o=
