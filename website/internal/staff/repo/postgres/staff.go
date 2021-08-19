@@ -5,24 +5,25 @@ import (
 	"errors"
 
 	client "github.com/MDPaun/go-start/tree/main/website/internal/database/postgres"
-
-	models "github.com/MDPaun/go-start/website/pkg/models/user"
+	models "github.com/MDPaun/go-start/tree/main/website/pkg/models/staff"
 )
 
-//User use from models
-type User models.User
+//Staff use from models
+type Staff models.Staff
 
-//UsertService use from models
-type UserService models.UserService
+//StafftService use from models
+type StaffService models.StaffService
 
-//GetUser get one User
-func (u User) GetUser(id int) (*models.User, error) {
-	row := client.DbClient.QueryRow("select user.id, user.user_group.id, user.email, user.password, user.firstname, user.lastname, user.image, user.ip, user.status, user.date_added, user_group.name from user inner join user_group on user.user_group.id = user_group.id where pet.id=$1;", id)
-	switch err := row.Scan(&u.ID, &u.GroupID, &u.Email, &u.Password, &u.FirstName, &u.LastName, &u.Image, &u.IP, &u.Status, &u.Date_added, &u.User_group.name); err {
+//GetStaff get one Staff
+func (s Staff) GetStaff(id int) (*models.Staff, error) {
+
+	row := client.DbClient.QueryRow("select staff.id, staff.staff_group_id, staff.email, staff.password, staff.firstname, staff.lastname, staff.image, staff.ip, staff.status, staff.date_added where staf.id=$1;", id) //, staff_group.name from user inner join name on staff.staff_group_id, = staff_group.id
+
+	switch err := row.Scan(&s.ID, &s.GroupID, &s.Email, &s.Password, &s.FirstName, &s.LastName, &s.Image, &s.IP, &s.Status, &s.DateAdded); err {
 	case sql.ErrNoRows:
-		return nil, errors.New("No matching records")
+		return nil, errors.New("no matching records")
 	case nil:
-		category := models.User(u)
+		category := models.Staff(s)
 		return &category, nil
 	default:
 		return nil, err
@@ -53,9 +54,9 @@ func (u User) GetUser(id int) (*models.User, error) {
 // 	return pets, nil
 // }
 
-// //CreatePet create a Pet
-// func (p *Pet) CreatePet() error {
-// 	stmt, err := client.DbClient.Prepare("INSERT INTO pet (name,age,image_url,description,breed_id,category_id,location_id) VALUES($1,$2,$3,$4,$5,$6,$7);")
+//CreatePet create a Pet
+// func (p *Pet) CreateStaff() error {
+// 	// stmt, err := client.DbClient.Prepare("INSERT INTO pet (name,age,image_url,description,breed_id,category_id,location_id) VALUES($1,$2,$3,$4,$5,$6,$7);")
 // 	if err != nil {
 // 		return err
 // 	}

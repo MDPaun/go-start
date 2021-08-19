@@ -17,8 +17,8 @@ type Staff struct {
 
 //PetService interface for Pet model
 type StaffService interface {
-	CreateStaff() error
-	GetStaffByGroup(StaffGroupID int) ([]*Staff, error)
+	// CreateStaff() error
+	// GetStaffByGroup(StaffGroupID int) ([]*Staff, error)
 	GetStaff(id int) (*Staff, error)
-	DeleteStaff(id int) error
+	// DeleteStaff(id int) error
 }

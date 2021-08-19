@@ -1,3 +1,1 @@
-package main
-
-// main routers
+package cmd

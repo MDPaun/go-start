@@ -1,80 +1,30 @@
 package main
 
 import (
-	"database/sql"
-	"fmt"
-	"io"
-	"log"
-	"net/http"
+	"github.com/MDPaun/go-start/tree/main/website/internal/staff/rest"
 
-	//for connecting to db
-	models "github.com/MDPaun/go-start/website/pkg/models/user"
-	_ "github.com/lib/pq"
+	"github.com/labstack/echo/v4"
 )
 
-const (
-	host     = "localhost"
-	port     = 5432 //5050
-	user     = "root"
-	password = "root"
-	dbname   = "db_main"
+var (
+	router = echo.New()
 )
-
-// var (
-// 	DbClient *sql.DB
-// )
 
 func main() {
-	connectionString := fmt.Sprintf("host=%s port=%d user=%s "+
-		"password=%s dbname=%s sslmode=disable",
-		host, port, user, password, dbname)
-
-	var err error
-	DbClient, err := sql.Open("postgres", connectionString)
-	if err != nil {
-		panic(err)
-	}
-	defer DbClient.Close()
-
-	err = DbClient.Ping()
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println("Successfully connected!")
-
-	// fmt.Println(DbClient.QueryRow("SELECT * FROM staff WHERE firstname = $1", "Marius"))
-
-	rows, err := DbClient.Query("SELECT * FROM staff;")
-	handlerows(rows, err)
-
-	helloHandler := func(w http.ResponseWriter, req *http.Request) {
-		io.WriteString(w, "Hello, world!\n")
-	}
-
-	http.HandleFunc("/", helloHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	mapUrls()
+	router.Logger.Fatal(router.Start(":3000"))
 }
 
-func handlerows(rows *sql.Rows, err error) {
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer rows.Close()
-	users := []models.User{}
-	for rows.Next() {
-		u := models.User{}
-		err := rows.Scan(&u.ID, &u.GroupID, &u.Email, &u.Password, &u.Salt, &u.FirstName, &u.LastName, &u.Image, &u.IP, &u.Status, &u.DateAdded)
-		if err != nil {
-			log.Println(err)
-			continue
-		}
-		users = append(users, u)
-	}
-	if err := rows.Err(); err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(users)
-	fmt.Printf("%T", users)
-	// return users
+func mapUrls() {
+	// router.POST("/category", rest.CreateCategory)
+	// router.GET("/category", rest.GetAllCategory)
+	// router.GET("/category/:id", rest.GetCategory)
+	// router.POST("/breed", rest.CreateBreed)
+	// router.GET("/breed/:category_id", rest.GetBreedByCategory)
+	// router.POST("/location", rest.CreateLocation)
+	// router.GET("/location", rest.GetAllLocation)
+	// router.GET("/pet/:category_id", rest.GetPetByCategory)
+	// router.POST("/pet", rest.CreatePet)
+	router.GET("/pet", rest.GetStaff)
+	// router.DELETE("/pet", rest.DeletePet)
 }
