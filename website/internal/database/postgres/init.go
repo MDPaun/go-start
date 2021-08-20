@@ -16,11 +16,11 @@ const (
 	dbname   = "db_main"
 )
 
-var (
-	DbClient *sql.DB
-)
+// var (
+// 	DbClient *sql.DB
+// )
 
-func init() {
+func ConnectDB() *sql.DB {
 	connectionString := fmt.Sprintf("host=%s port=%d user=%s "+
 		"password=%s dbname=%s sslmode=disable",
 		host, port, user, password, dbname)
@@ -30,7 +30,6 @@ func init() {
 	if err != nil {
 		panic(err)
 	}
-	defer DbClient.Close()
 
 	err = DbClient.Ping()
 	if err != nil {
@@ -38,9 +37,24 @@ func init() {
 	}
 
 	fmt.Println("Successfully connected!")
-
+	return DbClient
 }
 
-// func main() {
+// func ConnectDB1() *sql.DB {
+// 	connectionString := fmt.Sprintf("host=%s port=%d user=%s "+
+// 		"password=%s dbname=%s sslmode=disable",
+// 		host, port, user, password, dbname)
+// 	var err error
+// 	db, err := sql.Open("postgres", connectionString)
+// 	if err != nil {
+// 		panic(err)
+// 	}
+// 	defer db.Close()
 
+// 	err = db.Ping()
+// 	if err != nil {
+// 		panic(err)
+// 	}
+
+// 	return db
 // }

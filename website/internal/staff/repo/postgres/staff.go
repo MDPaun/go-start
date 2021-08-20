@@ -1,8 +1,7 @@
 package postgres
 
 import (
-	"database/sql"
-	"errors"
+	"fmt"
 
 	client "github.com/MDPaun/go-start/tree/main/website/internal/database/postgres"
 	models "github.com/MDPaun/go-start/tree/main/website/pkg/models/staff"
@@ -14,20 +13,28 @@ type Staff models.Staff
 //StafftService use from models
 type StaffService models.StaffService
 
-//GetStaff get one Staff
+//GetStaff get one User
 func (s Staff) GetStaff(id int) (*models.Staff, error) {
+	db := client.ConnectDB()
+	defer db.Close()
+	fmt.Println("Service")
+	// row := client.DbClient.QueryRow("SELECT staff.id, staff.staff_group_id, staff.email, staff.password, staff.firstname, staff.lastname, staff.image, staff.ip, staff.status, staff.date_added FROM staff where staff.id=$1;", 1) //, staff_group.name from user inner join name on staff.staff_group_id, = staff_group.id
+	row := db.QueryRow("SELECT * FROM staff WHERE staff_group_id = 1;", id) //, staff_group.name from user inner join name on staff.staff_group_id, = staff_group.id
 
-	row := client.DbClient.QueryRow("select staff.id, staff.staff_group_id, staff.email, staff.password, staff.firstname, staff.lastname, staff.image, staff.ip, staff.status, staff.date_added where staf.id=$1;", id) //, staff_group.name from user inner join name on staff.staff_group_id, = staff_group.id
-
-	switch err := row.Scan(&s.ID, &s.GroupID, &s.Email, &s.Password, &s.FirstName, &s.LastName, &s.Image, &s.IP, &s.Status, &s.DateAdded); err {
-	case sql.ErrNoRows:
-		return nil, errors.New("no matching records")
-	case nil:
-		category := models.Staff(s)
-		return &category, nil
-	default:
-		return nil, err
+	err := row.Scan(&s.ID, &s.GroupID, &s.Email, &s.Password, &s.Salt, &s.FirstName, &s.LastName, &s.Image, &s.IP, &s.Status, &s.DateAdded)
+	if err != nil {
+		fmt.Println(err)
 	}
+	return nil, err
+	// switch err := row.Scan(&s.ID, &s.GroupID, &s.Email, &s.Password, &s.FirstName, &s.LastName, &s.Image, &s.IP, &s.Status, &s.DateAdded); err {
+	// case sql.ErrNoRows:
+	// 	return nil, errors.New("no matching records")
+	// case nil:
+	// 	category := models.Staff(s)
+	// 	return &category, nil
+	// default:
+	// 	return nil, err
+	// }
 
 }
 

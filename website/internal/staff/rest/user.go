@@ -1,6 +1,7 @@
 package rest
 
 import (
+	"io"
 	"net/http"
 	"strconv"
 
@@ -36,13 +37,17 @@ import (
 // }
 
 //GetStaff route for GET
-func GetStaff(c echo.Context) error {
+func GetStaff1(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	response, err := service.GetStaff(id)
 	if err != nil {
 		panic(err)
 	}
 	return c.JSON(http.StatusOK, response)
+}
+
+func GetStaff(res http.ResponseWriter, req *http.Request) {
+	io.WriteString(res, "cat cat cat")
 }
 
 // //DeletePet route for DELETE
