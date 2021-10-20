@@ -1,48 +1,28 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
-	"github.com/MDPaun/go-start/tree/main/website/cmd/staff"
+	staff "github.com/MDPaun/go-start/tree/main/website/cmd/account/staff"
 )
 
-// var (
-// 	router = echo.New()
-// )
-
-// func d(res http.ResponseWriter, req *http.Request) {
-// 	io.WriteString(res, "dog dog dog")
-// }
-
-// func c(res http.ResponseWriter, req *http.Request) {
-// 	io.WriteString(res, "cat cat cat")
-// }
-
 func main() {
+
+	mux := http.NewServeMux()
 	mapUrls()
-	http.ListenAndServe(":8080", nil)
+	err := http.ListenAndServe(":8080", mux)
+	log.Fatal(err)
 }
 
 func mapUrls() {
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", home)
 	staff.StaffUrls()
+	http.Handle("/favicon.ico", http.NotFoundHandler())
 
 }
 
-// func main() {
-// 	mapUrls()
-// 	router.Logger.Fatal(router.Start(":3000"))
-// }
-
-// func mapUrls() {
-// 	router.POST("/category", rest.CreateCategory)
-// 	router.GET("/category", rest.GetAllCategory)
-// 	router.GET("/category/:id", rest.GetCategory)
-// 	router.POST("/breed", rest.CreateBreed)
-// 	router.GET("/breed/:category_id", rest.GetBreedByCategory)
-// 	router.POST("/location", rest.CreateLocation)
-// 	router.GET("/location", rest.GetAllLocation)
-// 	router.GET("/pet/:category_id", rest.GetPetByCategory)
-// 	router.POST("/pet", rest.CreatePet)
-// 	router.GET("/pet", rest.GetPet)
-// 	router.DELETE("/pet", rest.DeletePet)
-// }
+func home(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Hello page"))
+}
